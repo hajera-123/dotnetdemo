@@ -23,29 +23,28 @@ stages:
     pool:
       vmImage: ubuntu-latest
 
- steps:
- - task: Npm@1
-  displayName: 'Restore Angular Dependencies'
-  inputs:
-    command: install
-    workingDir: 'ClientApp'
-    verbose: false
+    steps:
+    - task: Npm@1
+      displayName: 'Restore Angular Dependencies'
+      inputs:
+        command: install
+        workingDir: 'ClientApp'
+        verbose: false
     
     
-- task: Npm@1 
-  displayName: 'Build Angular'
-  inputs:
-    command: custom
-    workingDir: 'ClientApp'
-    verbose: false
-    customcommand: 'run build --prod'
+    - task: Npm@1 
+      displayName: 'Build Angular'
+      inputs:
+        command: custom
+        workingDir: 'ClientApp'
+        verbose: false
+        customcommand: 'run build --prod'
     
     
-- task: Npm@1
-
-  displayName: 'Test UI'
-  inputs:
-    command: custom
-    workingDir: 'ClientApp'
-    verbose: false
-    customcommand: 'run test --watch=false'
+    - task: Npm@1
+      displayName: 'Test UI'
+      inputs:
+        command: custom
+        workingDir: 'ClientApp'
+        verbose: false
+        customcommand: 'run test --watch=false'
