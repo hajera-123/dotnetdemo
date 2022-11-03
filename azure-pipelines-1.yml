@@ -53,4 +53,4 @@ stages:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
-    'projects: 'dotnet6.csproj'
+    projects: 'dotnet6.csproj'
