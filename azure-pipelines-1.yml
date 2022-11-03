@@ -23,10 +23,9 @@ stages:
     pool:
       vmImage: ubuntu-latest
 
-steps:
+ steps:
 # UI Layer
   
-- script: dotnet build
 - task: Npm@1
   displayName: 'Restore Angular Dependencies'
   inputs:
