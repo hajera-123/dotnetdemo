@@ -48,3 +48,7 @@ stages:
         workingDir: 'ClientApp'
         verbose: false
         customcommand: 'run test --watch=false'
+    
+     # Middle Layer
+     - task: DotNetCoreCLI@2
+       displayName:
