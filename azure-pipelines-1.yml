@@ -1,14 +1,51 @@
 
 
 trigger:
+- main
+- master
 - develop
 
 pool:
   vmImage: ubuntu-latest
 
 variables:
+  buildplatform: 'Any CPU'
   buildConfiguration: 'Release'
+  artifaceName: drop
+  isMain: $[eq(variables['Build.SourceBranch'], 'refs/head/main')]
+  
+stages:
+  stage: 'Build'
+  displayName: 'Build the web application'
+  jobs:
+    job: 'BuildClient'
+    displayName: 'Build job'
+    pool:
+      vmImage: ubuntu-latest
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+# UI Layer
+  task: Npm@1
+  displayName: 'Restore Angular Dependencies'
+  inputs:
+    command: install
+    workingDir: 'ClientApp'
+    verbose: false
+    
+    
+  task: Npm@1 
+  displayName: 'Build Angular'
+  inputs:
+    command: custom
+    workingDir: 'ClientApp'
+    verbose: false
+    customcommand: 'run build --prod'
+    
+    
+  task: Npm@1
+  displayName: 'Test UI'
+  inputs:
+    command: custom
+    workingDir: 'ClientApp'
+    verbose: false
+    customcommand: 'run test --watch=false'
