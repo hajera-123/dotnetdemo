@@ -50,5 +50,31 @@ stages:
         customcommand: 'run test --watch=false'
     
      # Middle Layer
-     - task: DotNetCoreCLI@2
-       displayName:
+- task: DotNetCoreCLI@2
+  displayName:'Restore Angular Dependencies' 
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+
+
+    
+         '
+- task: DotNetCoreCLI@2
+  displayName:'Build the project - $(buildconfiguration)'
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--no-restore --configurations $(buildconfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'publish the project - $(buildconfiguration)'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: '**/*.csproj'
+    arguments: '--no-build' --configuration $(buildconfiguration) --output $(Build.Artifactstagingdirectory)/$(buildConfiguration)'
+    zipAfterPublish: true
+
+
+- publish: '$(Build.ArtifactStagingDirectory)
+  artifact: $(artifaceName)
