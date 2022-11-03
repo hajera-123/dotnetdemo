@@ -24,9 +24,7 @@ stages:
       vmImage: ubuntu-latest
 
  steps:
-# UI Layer
-  
-- task: Npm@1
+ - task: Npm@1
   displayName: 'Restore Angular Dependencies'
   inputs:
     command: install
