@@ -45,6 +45,7 @@ steps:
     
     
 - task: Npm@1
+
   displayName: 'Test UI'
   inputs:
     command: custom
