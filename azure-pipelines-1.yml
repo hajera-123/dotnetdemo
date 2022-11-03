@@ -53,20 +53,20 @@ stages:
 - task: DotNetCoreCLI@2
   displayName:'Restore Angular Dependencies' 
   inputs:
-    command: 'restore'
+    command: restore
     projects: '**/*.csproj'
-    
+
 - task: DotNetCoreCLI@2
   displayName:'Build the project - $(buildconfiguration)'
   inputs:
-    command: 'build'
+    command: build
     projects: '**/*.csproj'
     arguments: '--no-restore --configurations $(buildconfiguration)'
 
 - task: DotNetCoreCLI@2
   displayName: 'publish the project - $(buildconfiguration)'
   inputs:
-    command: 'publish'
+    command: publish
     publishWebProjects: false
     projects: '**/*.csproj'
     arguments: '--no-build' --configuration $(buildconfiguration) --output $(Build.Artifactstagingdirectory)/$(buildConfiguration)'
