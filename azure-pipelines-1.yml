@@ -57,8 +57,6 @@ stages:
     projects: '**/*.csproj'
 
 
-    
-         '
 - task: DotNetCoreCLI@2
   displayName:'Build the project - $(buildconfiguration)'
   inputs:
@@ -76,5 +74,5 @@ stages:
     zipAfterPublish: true
 
 
-  - publish: '$(Build.ArtifactStagingDirectory)''
+  - publish: '$(Build.ArtifactStagingDirectory)'
     artifact: $(artifaceName)
