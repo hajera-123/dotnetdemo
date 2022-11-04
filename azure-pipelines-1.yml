@@ -78,7 +78,7 @@ stages:
       
       
       
-    - stage: 'DeployDev'
+    - task: 'DeployDev'
       displayName: 'Deploy to Dev'
       # condition: and(succeeded(), eq(variables.isMain, 'true')
       variables:
