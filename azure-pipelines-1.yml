@@ -53,12 +53,12 @@ stages:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'restore'
-        projects: '**/*.csproj'
+        projects: 'dotnet6.csproj'
 
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
-        projects: '**/*.csproj'
+        projects: 'dotnet6.csproj'
         arguments: '--no-restore --configurations $(buildconfiguration)'
 
     - task: DotNetCoreCLI@2
