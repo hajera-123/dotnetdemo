@@ -75,5 +75,26 @@ stages:
 
     - publish: '$(Build.ArtifactStagingDirectory)'
       artifact: $(artifaceName)
-
+      
+      
+    - stage: 'DeployDev'
+      displayName: 'Deploy to Dev'
+      # condition: and(succeeded(), eq(variables.isMain, 'true')
+      variables:
+        appName: 'Hajera-asp-test'
+      jobs:
+      - deployment: 'Dev'
+      
+        environment: 'Dev'
+        strategy:
+           runOnce:
+            deploy:
+              steps:
+              - task: AzureRmWebappDeployment@4
+                inputs:
+                  connectionType: 'azureRM'
+                  azureSubscription: 'Cloud'
+                  appType: 'webAppLinux'
+                  WebAppName: $(appName)
+                  packageForLinux: '$(Pipeline.Workspace)/$(artifaceName)/$(buildConfiguration)/*.zip'
     
