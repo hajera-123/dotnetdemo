@@ -50,10 +50,10 @@ stages:
         customcommand: 'run test --watch=false'
     
      # Middle Layer
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'restore'
-    projects: 'dotnet6.csproj'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'restore'
+        projects: 'dotnet6.csproj'
 
     - task: DotNetCoreCLI@2
       inputs:
@@ -68,7 +68,7 @@ stages:
         arguments: '--no-build'' --configuration $(buildconfiguration) --output $(Build.Artifactstagingdirectory)/$(buildConfiguration)'
         zipAfterPublish: false
 
-        - publish: '$(Build.ArtifactStagingDirectory)'
-          artifact: $(artifaceName)
+    - publish: '$(Build.ArtifactStagingDirectory)'
+      artifact: $(artifaceName)
 
     
