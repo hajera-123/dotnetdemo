@@ -76,23 +76,23 @@ stages:
     - publish: '$(Build.ArtifactStagingDirectory)'
       artifact: $(artifaceName)
           
-    - task: 'DeployDev'
-      displayName: 'Deploy to Dev'
-      # condition: and(succeeded(), eq(variables.isMain, 'true')
-      variables:
-        appName: 'Hajera-asp-test'
-      jobs:
-      - deployment: 'Hajeradev'     
-        environment: 'Dev'
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-              - task: AzureRmWebappDeployment@4
-                inputs:
-                  connectionType: 'azureRM'
-                  azureSubscription: 'Azure subscription 1'
-                  appType: 'webAppLinux'
-                  WebAppName: $(appName)
-                  packageForLinux: '$(Pipeline.Workspace)/$(artifaceName)/$(buildConfiguration)/*.zip'
+- stage: 'DeployDev'
+  displayName: 'Deploy to Dev'
+  # condition: and(succeeded(), eq(variables.isMain, 'true')
+  variables:
+    appName: 'Hajera-asp-test'
+  jobs:
+  - deployment: 'Hajeradev'     
+    environment: 'Dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureRmWebappDeployment@4
+            inputs:
+              connectionType: 'azureRM'
+              azureSubscription: 'Azure subscription 1'
+              appType: 'webAppLinux'
+              WebAppName: $(appName)
+              packageForLinux: '$(Pipeline.Workspace)/$(artifaceName)/$(buildConfiguration)/*.zip'
     
