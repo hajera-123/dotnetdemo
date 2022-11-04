@@ -95,4 +95,44 @@ stages:
               appType: 'webAppLinux'
               WebAppName: $(appName)
               packageForLinux: '$(Pipeline.Workspace)/$(artifaceName)/$(buildConfiguration)/*.zip'
+
+- stage: 'Deploytest'
+  displayName: 'Deploy to Test'
+  # condition: and(succeeded(), eq(variables.isMain, 'true')
+  variables:
+    appName: 'Hajeratest'
+  jobs:
+  - deployment: 'Test'     
+    environment: 'Test'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureRmWebappDeployment@4
+            inputs:
+              connectionType: 'AzureRM'
+              azureSubscription: 'Azure subscription 1(f3fc3233-900f-4add-a918-4c285c1efa8d)'
+              appType: 'webAppLinux'
+              WebAppName: $(appName)
+              packageForLinux: '$(Pipeline.Workspace)/$(artifaceName)/$(buildConfiguration)/*.zip'
+
+- stage: 'DeployProd'
+  displayName: 'Deploy to Prod'
+  # condition: and(succeeded(), eq(variables.isMain, 'true')
+  variables:
+    appName: 'Hajeraprod'
+  jobs:
+  - deployment: 'Prod'     
+    environment: 'Prod'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureRmWebappDeployment@4
+            inputs:
+              connectionType: 'AzureRM'
+              azureSubscription: 'Azure subscription 1(f3fc3233-900f-4add-a918-4c285c1efa8d)'
+              appType: 'webAppLinux'
+              WebAppName: $(appName)
+              packageForLinux: '$(Pipeline.Workspace)/$(artifaceName)/$(buildConfiguration)/*.zip'
               
