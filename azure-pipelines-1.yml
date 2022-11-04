@@ -54,3 +54,21 @@ stages:
   inputs:
     command: 'restore'
     projects: 'dotnet6.csproj'
+
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: 'dotnet6.csproj'
+        arguments: '--no-restore --configurations $(buildconfiguration)'
+
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'publish'
+        publishWebProjects: true
+        arguments: '--no-build'' --configuration $(buildconfiguration) --output $(Build.Artifactstagingdirectory)/$(buildConfiguration)'
+        zipAfterPublish: false
+
+        - publish: '$(Build.ArtifactStagingDirectory)'
+          artifact: $(artifaceName)
+
+    
