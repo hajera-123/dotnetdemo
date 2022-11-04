@@ -84,7 +84,7 @@ stages:
       variables:
         appName: 'Hajera-RG-Test'
       jobs:
-      - deployment: 'Dev'
+      - deployment: 'Hajeradev'
       
         environment: 'Dev'
         strategy:
