@@ -4,6 +4,7 @@ trigger:
 - main
 - master
 - develop
+- feature/*
 
 pool:
   vmImage: ubuntu-latest
@@ -51,22 +52,26 @@ stages:
     
      # Middle Layer
     - task: DotNetCoreCLI@2
+      displayName: 'Restore project dependencies'
       inputs:
         command: 'restore'
-        projects: 'dotnet6.csproj'
+        projects: '**/*.csproj'
 
     - task: DotNetCoreCLI@2
+      displayName: 'Build the project - $(buildconfiguration)'
       inputs:
         command: 'build'
-        projects: 'dotnet6.csproj'
         arguments: '--no-restore --configurations $(buildconfiguration)'
-
+        projects: '**/*.csproj'
+        
     - task: DotNetCoreCLI@2
+      displayName: 'Publish the project - $(buildconfiguration)'
       inputs:
         command: 'publish'
-        publishWebProjects: true
-        arguments: '--no-build'' --configuration $(buildconfiguration) --output $(Build.Artifactstagingdirectory)/$(buildConfiguration)'
-        zipAfterPublish: false
+        projects: '**/*.csproj'
+        publishWebProjects: false
+        arguments: '--no-build --configuration $(buildconfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
+        zipAfterPublish: true
 
     - publish: '$(Build.ArtifactStagingDirectory)'
       artifact: $(artifaceName)
