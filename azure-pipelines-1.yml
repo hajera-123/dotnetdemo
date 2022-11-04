@@ -75,20 +75,17 @@ stages:
 
     - publish: '$(Build.ArtifactStagingDirectory)'
       artifact: $(artifaceName)
-      
-      
-      
+          
     - task: 'DeployDev'
       displayName: 'Deploy to Dev'
       # condition: and(succeeded(), eq(variables.isMain, 'true')
       variables:
         appName: 'Hajera-asp-test'
       jobs:
-      - deployment: 'Hajeradev'
-      
+      - deployment: 'Hajeradev'     
         environment: 'Dev'
         strategy:
-           runOnce:
+          runOnce:
             deploy:
               steps:
               - task: AzureRmWebappDeployment@4
