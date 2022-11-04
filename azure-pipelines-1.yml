@@ -77,7 +77,7 @@ stages:
       artifact: $(artifaceName)
       
       
-    - stage: 'DeployDev'
+    - stage: 'HajeraDev'
       displayName: 'Deploy to Dev'
       # condition: and(succeeded(), eq(variables.isMain, 'true')
       variables:
