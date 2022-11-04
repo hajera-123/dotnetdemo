@@ -81,7 +81,7 @@ stages:
       displayName: 'Deploy to Dev'
       # condition: and(succeeded(), eq(variables.isMain, 'true')
       variables:
-        appName: 'Hajera-asp-test'
+        appName: 'Hajera-RG-Test'
       jobs:
       - deployment: 'Dev'
       
