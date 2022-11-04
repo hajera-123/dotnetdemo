@@ -55,20 +55,20 @@ stages:
       displayName: 'Restore project dependencies'
       inputs:
         command: 'restore'
-        projects: '**/*.csproj'
+        projects: 'dotnet6.csproj'
 
     - task: DotNetCoreCLI@2
       displayName: 'Build the project - $(buildconfiguration)'
       inputs:
         command: 'build'
         arguments: '--no-restore --configurations $(buildconfiguration)'
-        projects: '**/*.csproj'
+        projects: 'dotnet6.csproj'
         
     - task: DotNetCoreCLI@2
       displayName: 'Publish the project - $(buildconfiguration)'
       inputs:
         command: 'publish'
-        projects: '**/*.csproj'
+        projects: 'dotnet6.csproj'
         publishWebProjects: false
         arguments: '--no-build --configuration $(buildconfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
         zipAfterPublish: true
