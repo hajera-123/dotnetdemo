@@ -80,9 +80,9 @@ stages:
   displayName: 'Deploy to Dev'
   # condition: and(succeeded(), eq(variables.isMain, 'true')
   variables:
-    appName: 'Hajera-asp-test'
+    appName: 'Hajeradev'
   jobs:
-  - deployment: 'Hajeradev'     
+  - deployment: 'Dev'     
     environment: 'Dev'
     strategy:
       runOnce:
