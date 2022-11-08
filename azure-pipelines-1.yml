@@ -31,5 +31,13 @@ stages:
         repository: 'dotnetdemodocker'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
+    
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'DotnetDockerConnection'
+        repository: 'dotnetdemodocker'
+        command: 'images'
+      
+      
 
   
